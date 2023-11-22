@@ -26,8 +26,9 @@ namespace E_Bank.Services
 
         public List<Customer> GetAll()
         {
-            return _repository.GetAll().Where(cus => cus.IsActive)
-                .Include(acnt => acnt.Accounts.Where(acnt => acnt.IsActive == true)).ToList();
+            return _repository.GetAll()
+        .Include(cus => cus.Accounts)
+        .ToList();
         }
 
         public Customer GetById(int id)

@@ -92,9 +92,28 @@ namespace E_Bank.Services
 
 
         public int Add(Account account)
+        {
+            var save = _repository.GetAll().Where(acc => acc.AccountType == "Savings").FirstOrDefault();
+            var current = _repository.GetAll().Where(acc => acc.AccountType == "Current").FirstOrDefault();
+            var Fdd = _repository.GetAll().Where(acc => acc.AccountType == "FD").FirstOrDefault();
+
+
+            if (save.AccountType == account.AccountType)
             {
-                return _repository.Add(account);
+                account.IntrestRate = save.IntrestRate;
             }
+            else if (current.AccountType == account.AccountType)
+            {
+                account.IntrestRate = current.IntrestRate;
+            }
+            else if (Fdd.AccountType == account.AccountType)
+            {
+                account.IntrestRate = Fdd.IntrestRate;
+            }
+            return _repository.Add(account);
+
+        }
+    
 
         public Account GetById(int id)
         {

@@ -126,7 +126,7 @@ namespace E_Bank.Controllers
             throw new UserNotFoundException("Cannot find the match id for update");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
            var matched= _customerService.GetById(id);
